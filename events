@@ -1,0 +1,19 @@
+SELECT 
+    Event, 
+    COUNT( DISTINCT visitID) as UniqueEvents, 
+    COUNT(DISTINCT clientID) as Users
+    FROM 
+    (
+        SELECT 
+        "ym:s:visitID" as visitID, 
+        "ym:s:clientID" as clientID, 
+        arrayJoin("ym:s:parsedParamsKey1") as Event, 
+        arrayJoin("ym:s:parsedParamsKey3") as EventAction
+        FROM travel.web_visits_all
+        WHERE 
+        "ym:s:date" BETWEEN {{interval_from}} and {{interval_to}}-1 AND 
+        Event = 'forma_poiska_otelya-click-naiti'
+        AND EventAction = 'button_click'
+    )
+    GROUP BY 
+    Event, EventAction
