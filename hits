@@ -1,0 +1,15 @@
+SELECT 
+`ym:pv:watchID` as watchID,
+`ym:pv:regionCountry` as regionCountry,
+`ym:pv:regionCity` as regionCity,
+`ym:pv:URL` as URL,
+`ym:pv:browser` as browser,
+`ym:pv:mobilePhone` as mobilePhone,
+`ym:pv:mobilePhoneModel` as mobilePhoneModel,
+`ym:pv:operatingSystem` as operatingSystem
+from travel.web_hits_all
+WHERE "ym:pv:URL" LIKE '%search?%'
+and "ym:pv:URL" NOT LIKE '%localhost%'
+and "ym:pv:URL" NOT LIKE '%dev.travel.mts.ru%'
+and "ym:pv:URL" NOT LIKE '%preview.travel.mts.ru%'
+and "ym:pv:URL" NOT LIKE '%dev.booking.mts-corp.ru%'
